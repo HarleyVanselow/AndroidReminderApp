@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class HabitIO {
     final private static String DATA_STORE = "habitData.json";
-    public static List<Habit> readHabitsFromFile(Context context){
+    public static ArrayList<Habit> readHabitsFromFile(Context context){
         Gson gson = new Gson();
         StringBuilder stringBuilder = new StringBuilder();
-        Type collectionType = new TypeToken<List<Habit>>(){}.getType();
+        Type collectionType = new TypeToken<ArrayList<Habit>>(){}.getType();
         try {
             FileInputStream fileInputStream = context.openFileInput(DATA_STORE);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -40,8 +40,8 @@ public class HabitIO {
         return gson.fromJson(stringBuilder.toString(),collectionType);
     }
     public static void saveHabitToFile(Habit habit,Context context){
-        List<Habit> habits = readHabitsFromFile(context);
-        habits.add(habit);
+        ArrayList<Habit> habits = readHabitsFromFile(context);
+        addHabitToList(habit,habits,context);
         Gson gson = new Gson();
         String out = gson.toJson(habits);
         FileOutputStream fileOutputStream;
@@ -55,5 +55,15 @@ public class HabitIO {
     }
     public static void clearHabits(Context context){
         context.deleteFile(DATA_STORE);
+    }
+
+    public static void addHabitToList(Habit habit,ArrayList<Habit> habitsOnFile, Context context) {
+        for(Habit onFile:habitsOnFile){
+            if(onFile.getUniqueId().equals(habit.getUniqueId())){
+                habitsOnFile.set(habitsOnFile.indexOf(onFile),habit);
+                return;
+            }
+        }
+        habitsOnFile.add(habit);
     }
 }
