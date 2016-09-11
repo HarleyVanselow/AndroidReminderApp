@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
  * Created by Harley Vanselow on 2016-09-10.
  */
 public class MainActivity extends AppCompatActivity {
+    final public static String HABIT = "com.example.harley.vanselow_habittracker.HABIT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,5 +62,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchHabitDetails(View view) {
+        Gson gson = new Gson();
+        Habit clickedHabit = (Habit)((View)view.getParent()).getTag();
+        String serializedHabit = gson.toJson(clickedHabit);
+        Intent intent = new Intent(this,HabitDetails.class);
+        intent.putExtra(HABIT,serializedHabit);
+        startActivity(intent);
     }
 }

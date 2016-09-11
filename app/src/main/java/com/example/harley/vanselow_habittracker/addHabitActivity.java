@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class AddHabitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_habit);
+        setContentView(R.layout.activity_add_habit);
     }
     public void saveHabit(View view){
         List<DayOfWeek> checkedDays = getDayOfWeeks();

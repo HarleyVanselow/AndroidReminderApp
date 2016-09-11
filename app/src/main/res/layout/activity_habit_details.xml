@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context=".AddHabitActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.harley.vanselow_habittracker.HabitDetails">
 
     <ScrollView
         android:id="@+id/habitListScroll"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/addButtonContainer"
+        android:layout_above="@+id/deleteHabit"
         android:background="@color/mainActivityBackground">
 
         <LinearLayout
-            android:id="@+id/habitList"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/completionList"
             android:divider="@drawable/hz_divider"
-            android:orientation="vertical"
-            android:showDividers="middle">
-
-
-        </LinearLayout>
+            android:showDividers="middle" />
     </ScrollView>
 
     <ImageView
-        android:id="@+id/addButtonContainer"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/bottomButtonHeight"
+        android:id="@+id/deleteHabit"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="false"
-        android:background="@color/createButtonColor"
-        android:onClick="launchHabitCreator"
-        android:minHeight="25dp"
-        android:src="@drawable/ic_add_black_24px" />
+        android:background="#d50000"
+        android:onClick="deleteHabit"
+        android:src="@drawable/ic_delete_black_24px"
+        android:contentDescription="deleteHabitButton" />
 </RelativeLayout>

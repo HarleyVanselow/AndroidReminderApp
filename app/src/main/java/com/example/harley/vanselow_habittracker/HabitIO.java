@@ -1,8 +1,10 @@
 package com.example.harley.vanselow_habittracker;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -13,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Harley Vanselow on 2016-09-10.
@@ -24,6 +26,7 @@ public class HabitIO {
         Gson gson = new Gson();
         StringBuilder stringBuilder = new StringBuilder();
         Type collectionType = new TypeToken<ArrayList<Habit>>(){}.getType();
+        ArrayList<Habit> habits = new ArrayList<>();
         try {
             FileInputStream fileInputStream = context.openFileInput(DATA_STORE);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -32,16 +35,23 @@ public class HabitIO {
             while((line=reader.readLine())!=null){
                 stringBuilder.append(line);
             }
+        habits = gson.fromJson(stringBuilder.toString(), collectionType);
         } catch (FileNotFoundException e) {
             return new ArrayList<Habit>();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (JsonSyntaxException e){
+            e.printStackTrace();
         }
-        return gson.fromJson(stringBuilder.toString(),collectionType);
+        return habits;
     }
     public static void saveHabitToFile(Habit habit,Context context){
         ArrayList<Habit> habits = readHabitsFromFile(context);
         addHabitToList(habit,habits,context);
+        saveHabitsToFile(habits, context);
+    }
+
+    private static void saveHabitsToFile(ArrayList<Habit> habits, Context context) {
         Gson gson = new Gson();
         String out = gson.toJson(habits);
         FileOutputStream fileOutputStream;
@@ -53,6 +63,8 @@ public class HabitIO {
             e.printStackTrace();
         }
     }
+
+
     public static void clearHabits(Context context){
         context.deleteFile(DATA_STORE);
     }
@@ -65,5 +77,17 @@ public class HabitIO {
             }
         }
         habitsOnFile.add(habit);
+    }
+
+    public static void deleteHabit(Habit habit,Context context) {
+        ArrayList<Habit> habits = readHabitsFromFile(context);
+        for(Habit existingHabit:habits){
+            if(existingHabit.getUniqueId().equals(habit.getUniqueId())){
+                habits.remove(existingHabit);
+                saveHabitsToFile(habits, context);
+                return;
+            }
+        }
+        throw new NoSuchElementException("Habit not found on file, could not delete");
     }
 }
