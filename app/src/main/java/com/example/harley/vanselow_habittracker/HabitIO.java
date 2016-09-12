@@ -1,7 +1,6 @@
 package com.example.harley.vanselow_habittracker;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

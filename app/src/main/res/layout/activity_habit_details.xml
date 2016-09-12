@@ -26,7 +26,7 @@
         android:layout_height="@dimen/bottomButtonHeight"
         android:id="@+id/deleteHabit"
         android:layout_alignParentBottom="true"
-        android:background="#d50000"
+        android:background="@color/colorWarning"
         android:onClick="deleteHabit"
         android:src="@drawable/ic_delete_black_24px"
         android:contentDescription="deleteHabitButton" />

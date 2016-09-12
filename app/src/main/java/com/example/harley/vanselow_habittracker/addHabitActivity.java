@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddHabitActivity extends AppCompatActivity {
@@ -19,43 +20,41 @@ public class AddHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_habit);
     }
     public void saveHabit(View view){
-        List<DayOfWeek> checkedDays = getDayOfWeeks();
+        List<Integer> checkedDays = getDayOfWeeks();
         TextView habitNameView = (TextView) findViewById(R.id.editText);
         String habitNameText = habitNameView.getText().toString();
         HabitIO.saveHabitToFile(new Habit(habitNameText,checkedDays),this);
         finish();
     }
 
-
-
     @NonNull
-    private List<DayOfWeek> getDayOfWeeks() {
-        List<DayOfWeek> checkedDays = new ArrayList<>();
+    private List<Integer> getDayOfWeeks() {
+        List<Integer> checkedDays = new ArrayList<>();
         LinearLayout dayGroup= (LinearLayout) findViewById(R.id.dayGroup);
         for (int i = 0; i < dayGroup.getChildCount(); i++) {
             CheckBox day = (CheckBox) dayGroup.getChildAt(i);
             if(day.isChecked()){
                 switch(day.getId()){
-                    case R.id.sundayBox:
-                        checkedDays.add(DayOfWeek.Sunday);
-                        break;
                     case R.id.mondayBox:
-                        checkedDays.add(DayOfWeek.Monday);
+                        checkedDays.add(Calendar.MONDAY);
                         break;
                     case R.id.tuesdayBox:
-                        checkedDays.add(DayOfWeek.Tuesday);
+                        checkedDays.add(Calendar.TUESDAY);
                         break;
                     case R.id.wednesdayBox:
-                        checkedDays.add(DayOfWeek.Wednesday);
+                        checkedDays.add(Calendar.WEDNESDAY);
                         break;
                     case R.id.thursdayBox:
-                        checkedDays.add(DayOfWeek.Thursday);
+                        checkedDays.add(Calendar.THURSDAY);
                         break;
                     case R.id.fridayBox:
-                        checkedDays.add(DayOfWeek.Friday);
+                        checkedDays.add(Calendar.FRIDAY);
                         break;
                     case R.id.saturdayBox:
-                        checkedDays.add(DayOfWeek.Saturday);
+                        checkedDays.add(Calendar.SATURDAY);
+                        break;
+                    case R.id.sundayBox:
+                        checkedDays.add(Calendar.SUNDAY);
                         break;
                 }
             }

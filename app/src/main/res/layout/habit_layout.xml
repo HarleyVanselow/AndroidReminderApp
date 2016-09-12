@@ -7,12 +7,13 @@
     android:background="@color/colorPrimary"
     android:gravity="center_vertical">
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="completeHabit"
-        android:src="@drawable/ic_check_black_24dp"
-        android:layout_marginLeft="10dp" />
+        android:textSize="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <TextView
         android:layout_width="fill_parent"

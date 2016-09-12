@@ -26,12 +26,11 @@
 
     <ImageView
         android:id="@+id/addButtonContainer"
+        android:onClick="launchHabitCreator"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/bottomButtonHeight"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="false"
         android:background="@color/createButtonColor"
-        android:onClick="launchHabitCreator"
-        android:minHeight="25dp"
         android:src="@drawable/ic_add_black_24px" />
 </RelativeLayout>

@@ -12,11 +12,11 @@ import java.util.UUID;
  */
 public class Habit {
     private String name;
-    private List<DayOfWeek> days;
+    private List<Integer> days;
     private List<Date> completionRecord;
     private final UUID uniqueId;
     private final Date creation;
-    public Habit(String name, List<DayOfWeek> days) {
+    public Habit(String name, List<Integer> days) {
         this.name = name;
         this.days = days;
         this.creation = new Date();
@@ -32,11 +32,11 @@ public class Habit {
         this.name = name;
     }
 
-    public List<DayOfWeek> getDays() {
+    public List<Integer> getDays() {
         return days;
     }
 
-    public void setDays(List<DayOfWeek> days) {
+    public void setDays(List<Integer> days) {
         this.days = days;
     }
 
