@@ -62,7 +62,4 @@ public class AddHabitActivity extends AppCompatActivity {
         return checkedDays;
     }
 
-    public void clearHabits(View view) {
-        HabitIO.clearHabits(this);
-    }
 }

@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/addButtonContainer"
-        android:background="@color/mainActivityBackground">
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:id="@+id/habitList"

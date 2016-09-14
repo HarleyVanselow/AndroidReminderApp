@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -24,10 +25,34 @@ public class HabitDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_details);
         String habitClicked = getIntent().getStringExtra(MainActivity.HABIT);
+        readHabitProvided(habitClicked);
+        setTitle(habit.getName());
+        setCompletionCount();
+        setMissedCount();
+        loadCompletionRecords();
+    }
+
+    private void setMissedCount() {
+        Calendar creationDate = Calendar.getInstance();
+        creationDate.setTime(habit.getCreation());
+        for(Date checkDate =creationDate.getTime();checkDate.before(new Date());creationDate.add(Calendar.DATE,1)){
+            boolean isCheckableDay = habit.getDays().contains(creationDate.get(Calendar.DAY_OF_WEEK));
+            if(isCheckableDay){
+                for(Date completionNoted:habit.getCompletionRecord()){
+                    
+                }
+            }
+        }
+    }
+
+    private void setCompletionCount() {
+        TextView missedCountView = (TextView)findViewById(R.id.completionCount);
+        missedCountView.setText(habit.getCompletionRecord().size());
+    }
+
+    private void readHabitProvided(String habitClicked) {
         Gson gson = new Gson();
         habit = gson.fromJson(habitClicked,Habit.class);
-        setTitle(habit.getName());
-        loadCompletionRecords();
     }
 
     private void loadCompletionRecords() {

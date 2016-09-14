@@ -10,4 +10,7 @@
     <string name="monday">Monday</string>
     <string name="save">Save</string>
     <string name="addhabit">addHabit</string>
+    <string name="completion_record_header">Completion Record</string>
+    <string name="total_completions_header">Total Completions</string>
+    <string name="days_missed_header">Days Missed</string>
 </resources>
