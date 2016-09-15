@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Habit clickedHabit = (Habit) ((View) view.getParent()).getTag();
         String serializedHabit = gson.toJson(clickedHabit);
-        Intent intent = new Intent(this, HabitDetails.class);
+        Intent intent = new Intent(this, HabitDetailsView.class);
         intent.putExtra(HABIT, serializedHabit);
         startActivity(intent);
     }
