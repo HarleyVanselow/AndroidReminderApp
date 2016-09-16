@@ -13,7 +13,8 @@
         android:onClick="completeHabit"
         android:textSize="40dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="fill_parent"

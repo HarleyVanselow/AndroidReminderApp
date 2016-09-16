@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchHabitCreator(View view) {
-        Intent intent = new Intent(this, AddHabitActivity.class);
+        Intent intent = new Intent(this, AddHabitView.class);
         startActivity(intent);
     }
 

@@ -17,40 +17,37 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class HabitDetailsView extends AppCompatActivity {
-    private Habit habit;
+    private HabitDetailsModel habitDetailsModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_details);
-        String habitClicked = getIntent().getStringExtra(MainActivity.HABIT);
-        readHabitProvided(habitClicked);
-        setTitle(habit.getName());
+        String habitString = getIntent().getStringExtra(MainActivity.HABIT);
+        habitDetailsModel = new HabitDetailsModel(habitString);
+        setTitle(habitDetailsModel.getName());
         setCompletionCount();
         setMissedCount();
         loadCompletionRecords();
     }
 
     private void setMissedCount() {
-        int missedCount = HabitDetailsModel.getMissedCountValue(habit);
+        int missedCount = habitDetailsModel.getMissedCountValue();
         TextView missedCountView = (TextView) findViewById(R.id.missedCount);
         missedCountView.setText(String.valueOf(missedCount));
     }
 
     private void setCompletionCount() {
         TextView completionCountView = (TextView) findViewById(R.id.completionCount);
-        completionCountView.setText(String.valueOf(habit.getCompletionRecord().size()));
+        completionCountView.setText(String.valueOf(habitDetailsModel.getCompletionRecord().size()));
     }
 
-    private void readHabitProvided(String habitClicked) {
-        Gson gson = new Gson();
-        habit = gson.fromJson(habitClicked, Habit.class);
-    }
+
 
     private void loadCompletionRecords() {
         LinearLayout habitCompletionList = (LinearLayout) findViewById(R.id.completionList);
         habitCompletionList.removeAllViews();
-        List<Date> completionRecordList = habit.getCompletionRecord();
+        List<Date> completionRecordList = habitDetailsModel.getCompletionRecord();
         for (Date completion : completionRecordList) {
             getLayoutInflater().inflate(R.layout.habit_completion_record, habitCompletionList);
             RelativeLayout completionRecordContainer = (RelativeLayout) findViewById(R.id.newCompletionRecord);
@@ -67,21 +64,21 @@ public class HabitDetailsView extends AppCompatActivity {
     }
 
 
+
+
+    public void deleteRecord(View view) {
+        habitDetailsModel.deleteHabitRecord(view);
+        loadCompletionRecords();
+        setMissedCount();
+        setCompletionCount();
+    }
     public void deleteHabit(View view) {
         try {
-            HabitIO.deleteHabit(habit, this);
+            HabitIO.deleteHabit(habitDetailsModel.getHabit(), view.getContext());
         } catch (NoSuchElementException e) {
             Toast.makeText(HabitDetailsView.this, "Habit not found!", Toast.LENGTH_SHORT).show();
         }
         finish();
     }
 
-    public void deleteRecord(View view) {
-        Date completionToDelete = (Date) ((View) view.getParent()).getTag();
-        habit.getCompletionRecord().remove(completionToDelete);
-        HabitIO.saveHabitToFile(habit, this);
-        loadCompletionRecords();
-        setMissedCount();
-        setCompletionCount();
-    }
 }

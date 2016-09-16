@@ -1,13 +1,41 @@
 package com.example.harley.vanselow_habittracker;
 
+import android.view.View;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Harley Vanselow on 2016-09-14.
  */
 public class HabitDetailsModel {
-    protected static int getMissedCountValue(Habit habit) {
+    private Habit habit;
+
+    public Habit getHabit() {
+        return habit;
+    }
+
+    public HabitDetailsModel(String habitClicked) {
+        readHabitProvided(habitClicked);
+    }
+
+    public void deleteHabitRecord(View view) {
+        Date completionToDelete = (Date) ((View) view.getParent()).getTag();
+        habit.getCompletionRecord().remove(completionToDelete);
+        HabitIO.saveHabitToFile(habit, view.getContext());
+    }
+
+    private void readHabitProvided(String habitClicked) {
+        Gson gson = new Gson();
+        habit = gson.fromJson(habitClicked, Habit.class);
+    }
+
+    protected int getMissedCountValue() {
         Calendar creationDate = Calendar.getInstance();
         Calendar toCheck = Calendar.getInstance();
         Calendar completionDate = Calendar.getInstance();
@@ -35,4 +63,10 @@ public class HabitDetailsModel {
         return missedCount;
     }
 
+    public List<Date> getCompletionRecord() {
+        return habit.getCompletionRecord();
+    }
+    public String getName(){
+        return habit.getName();
+    }
 }
