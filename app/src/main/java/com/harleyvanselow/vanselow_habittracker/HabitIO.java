@@ -46,7 +46,7 @@ public class HabitIO {
     }
     public static void saveHabitToFile(Habit habit,Context context){
         ArrayList<Habit> habits = readHabitsFromFile(context);
-        addHabitToList(habit,habits,context);
+        addHabitToList(habit,habits);
         saveHabitsToFile(habits, context);
     }
 
@@ -63,7 +63,7 @@ public class HabitIO {
         }
     }
 
-    public static void addHabitToList(Habit habit,ArrayList<Habit> habitsOnFile, Context context) {
+    public static void addHabitToList(Habit habit, ArrayList<Habit> habitsOnFile) {
         for(Habit onFile:habitsOnFile){
             if(onFile.getUniqueId().equals(habit.getUniqueId())){
                 habitsOnFile.set(habitsOnFile.indexOf(onFile),habit);
@@ -83,5 +83,8 @@ public class HabitIO {
             }
         }
         throw new NoSuchElementException("Habit not found on file, could not delete");
+    }
+    public static void clearHabits(Context context){
+        context.deleteFile(DATA_STORE);
     }
 }
