@@ -1,4 +1,4 @@
-package com.example.harley.vanselow_habittracker;
+package com.harleyvanselow.vanselow_habittracker;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +7,7 @@ import java.util.UUID;
 
 /**
  * Created by Harley on 9/9/2016.
+ *
  */
 public class Habit {
     private String name;
@@ -21,21 +22,20 @@ public class Habit {
         this.uniqueId = UUID.randomUUID();
         this.completionRecord = new ArrayList<>();
     }
+    public Habit(String name,List<Integer> days, Date creation){
+        this.name = name;
+        this.days = days;
+        this.creation = creation;
+        this.uniqueId = UUID.randomUUID();
+        this.completionRecord = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<Integer> getDays() {
         return days;
-    }
-
-    public void setDays(List<Integer> days) {
-        this.days = days;
     }
 
     public Date getCreation() {

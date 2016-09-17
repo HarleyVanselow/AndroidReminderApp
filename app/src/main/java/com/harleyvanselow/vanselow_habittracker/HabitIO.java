@@ -1,4 +1,4 @@
-package com.example.harley.vanselow_habittracker;
+package com.harleyvanselow.vanselow_habittracker;
 
 import android.content.Context;
 
@@ -61,11 +61,6 @@ public class HabitIO {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-
-    public static void clearHabits(Context context){
-        context.deleteFile(DATA_STORE);
     }
 
     public static void addHabitToList(Habit habit,ArrayList<Habit> habitsOnFile, Context context) {

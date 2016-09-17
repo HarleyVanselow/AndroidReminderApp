@@ -1,4 +1,4 @@
-package com.example.harley.vanselow_habittracker;
+package com.harleyvanselow.vanselow_habittracker;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

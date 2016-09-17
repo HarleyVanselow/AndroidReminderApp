@@ -4,9 +4,9 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.example.harley.vanselow_habittracker"
-        minSdkVersion 19
-        targetSdkVersion 19
+        applicationId 'com.harleyvanselow.vanselow_habittracker'
+        minSdkVersion 18
+        targetSdkVersion 18
         versionCode 1
         versionName "1.0"
     }
@@ -23,7 +23,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'junit:junit:4.12'
     compile 'joda-time:joda-time:2.9.4'

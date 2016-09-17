@@ -1,4 +1,4 @@
-package com.example.harley.vanselow_habittracker;
+package com.harleyvanselow.vanselow_habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Harley Vanselow on 2016-09-10.
  */
 public class MainActivity extends AppCompatActivity {
-    final public static String HABIT = "com.example.harley.vanselow_habittracker.HABIT";
+    final public static String HABIT = "com.harleyvanselow.vanselow_habittracker.HABIT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

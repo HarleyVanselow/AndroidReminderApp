@@ -1,14 +1,12 @@
-package com.example.harley.vanselow_habittracker;
+package com.harleyvanselow.vanselow_habittracker;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Created by Harley Vanselow on 2016-09-14.
