@@ -12,7 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+/**
+* This class serves to display details about a particular habit's completion record. This class will
+ * have access to a serialized Habit from MainActivity, which it passes off to HabitDetailModel to
+ * deserialize and process, in compliance with MVC architecture. It has the ability to inflate a
+ * scrolling list of completion records for the given Habit, as well as present data about completion
+ * stats. Each completion record listed also has a deletion button, which removes the completion record
+ * and updates the rest of the view.
+* */
 public class HabitDetailsView extends AppCompatActivity {
     private HabitDetailsModel habitDetailsModel;
 
@@ -59,9 +66,6 @@ public class HabitDetailsView extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("MMM d, HH:mm");
         return format.format(completion);
     }
-
-
-
 
     public void deleteRecord(View view) {
         habitDetailsModel.deleteHabitRecord(view);

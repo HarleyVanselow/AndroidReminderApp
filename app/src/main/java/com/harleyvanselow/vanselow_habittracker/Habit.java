@@ -8,6 +8,10 @@ import java.util.UUID;
 /**
  * Created by Harley on 9/9/2016.
  *
+ * This class serves as the object representation of the "habits" that users can create. The class
+ * includes information about the habit name, creation date, and completion record. Additionally, each
+ * habit has a unique ID, using a random UUID. This ensures every habit created can be correctly tracked,
+ * and it can be ensured multiple copies of the same habit are not stored in the file.
  */
 public class Habit {
     private String name;

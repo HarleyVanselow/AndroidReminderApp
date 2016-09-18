@@ -18,6 +18,11 @@ import java.util.NoSuchElementException;
 
 /**
  * Created by Harley Vanselow on 2016-09-10.
+ *
+ * This class contains all methods used by the app for Habit CRUD from the file system. As use of
+ * SQL was discouraged, all habit data is serialized into JSON and saved as a String into a file
+ * using the GSON library. All methods are declared statically to avoid the need to instantiate
+ * HabitIO instances in ever other class it's used in. Instrumentation tests exist for this class in "HabitIOTest"
  */
 public class HabitIO {
     final private static String DATA_STORE = "habitData.json";

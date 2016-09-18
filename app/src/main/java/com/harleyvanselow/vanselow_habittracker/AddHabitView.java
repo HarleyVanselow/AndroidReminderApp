@@ -12,6 +12,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * This class serves to populate a UI where a user can create a new habit. It reads the contents
+ * of the onscreen text field and days of week checkboxes to create a new habit, then save it to
+ * the data file using HabitIO. After the new habit is requested to be saved, this class will end the
+ * activity, returning the user to the MainActivity view.
+ *
+ * One possible issue is that there is no validation of user input. It is considered valid for a user
+ * to save a habit with no name and no days of the week selected, which will result in the habit never
+ * appearing, but still existing in the save file.
+ */
 public class AddHabitView extends AppCompatActivity {
 
     @Override

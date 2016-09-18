@@ -10,6 +10,14 @@ import java.util.List;
 
 /**
  * Created by Harley Vanselow on 2016-09-14.
+ *
+ * This class serves to provide information about a certain Habit to its accompanying HabitDetailsView.
+ * On instantiation this class deserializes a Habit string, and saves it as a local private variable
+ * which is then used by its other methods, when invoked by the viewer.
+ *
+ * This class may have performance issues if a habit is created, and not deleted from an very long
+ * period of time. Since the getMissedCount method will iterate through every day since a given
+ * habit's creation, in some cases this iteration may cause a minor but conceivably noticeable delay.
  */
 public class HabitDetailsModel {
     private Habit habit;
