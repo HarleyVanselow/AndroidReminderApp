@@ -48,6 +48,7 @@ public class HabitDetailsModel {
         int missedCount = 0;
         creationDate.setTime(habit.getCreation());
         Date currentDate = new Date();
+        // Date iteration inspired by http://stackoverflow.com/a/4535239
         for (Date checkDate = creationDate.getTime(); checkDate.before(currentDate); creationDate.add(Calendar.DATE, 1), checkDate = creationDate.getTime()) {
             toCheck.setTime(checkDate);
             boolean isCheckableDay = habit.getDays().contains(toCheck.get(Calendar.DAY_OF_WEEK));

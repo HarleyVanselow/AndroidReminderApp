@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class HabitIOTest {
     public void setContext(){
         context = InstrumentationRegistry.getTargetContext();
         testHabit = new Habit("Test Habit", Arrays.asList(Calendar.MONDAY,Calendar.THURSDAY));
+        HabitIO.clearHabits(context);
     }
 
     @After
@@ -59,7 +61,7 @@ public class HabitIOTest {
         HabitIO.addHabitToList(editedHabit,habits);
         Assert.assertEquals(1,habits.size());
         Assert.assertEquals("New Test Habit",habits.get(0).getName());
-        HabitIO.addHabitToList(new Habit("Other Habit",Arrays.asList(1)),habits);
+        HabitIO.addHabitToList(new Habit("Other Habit", Collections.singletonList(1)),habits);
         Assert.assertEquals(2,habits.size());
 
     }
@@ -74,7 +76,7 @@ public class HabitIOTest {
     @Test
     public void testDeleteHabit() throws Exception {
         HabitIO.saveHabitToFile(testHabit,context);
-        HabitIO.saveHabitToFile(new Habit("new test",Arrays.asList(1)),context);
+        HabitIO.saveHabitToFile(new Habit("new test", Collections.singletonList(1)),context);
         HabitIO.deleteHabit(testHabit,context);
         ArrayList<Habit> habits = HabitIO.readHabitsFromFile(context);
         Assert.assertEquals(1, habits.size());

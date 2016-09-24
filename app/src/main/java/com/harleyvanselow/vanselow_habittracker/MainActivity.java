@@ -3,7 +3,6 @@ package com.harleyvanselow.vanselow_habittracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -13,13 +12,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * Created by Harley Vanselow on 2016-09-10.
