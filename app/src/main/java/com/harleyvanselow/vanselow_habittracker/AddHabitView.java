@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,9 +31,16 @@ public class AddHabitView extends AppCompatActivity {
         setContentView(R.layout.activity_add_habit);
     }
     public void saveHabit(View view){
-        List<Integer> checkedDays = getDaysOfWeek();
         TextView habitNameView = (TextView) findViewById(R.id.editText);
+        List<Integer> checkedDays = getDaysOfWeek();
         String habitNameText = habitNameView.getText().toString();
+        if(checkedDays.size()==0){
+            Toast.makeText(this,"Please select at least one day",Toast.LENGTH_SHORT).show();
+            return;
+        }else if(habitNameText.length()==0){
+            Toast.makeText(this,"Please name your habit",Toast.LENGTH_SHORT).show();
+            return;
+        }
         HabitIO.saveHabitToFile(new Habit(habitNameText,checkedDays),this);
         finish();
     }

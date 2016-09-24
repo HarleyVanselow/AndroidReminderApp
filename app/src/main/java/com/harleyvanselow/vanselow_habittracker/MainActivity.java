@@ -19,12 +19,15 @@ import java.util.Map;
 /**
  * Created by Harley Vanselow on 2016-09-10.
  *
- * This class represents the main page of the app, where users can view their habits for the day,
+ * This class represents the main page of the app, where users can view their habits,
  * mark completions, and create new habits. The class has methods to launch other pages in the app,
  * and inflate views within itself to display habits. Each habit view listed within the main activity
  * is tagged with its relevant habit, which is serialized and passed on as a String extra into the
  * Habit Details view when a habit is pressed. This design intuitively maintains the idea of each
  * entry in the list being a "habit", as the view itself has all the relevant data.
+ *
+ * Habits currently "active" (the current day is one of the checked days) will appear at the top
+ * of the list, with a brighter colored background. Other habits will appear below, without the highlight.
  */
 public class MainActivity extends AppCompatActivity {
     final public static String HABIT = "com.harleyvanselow.vanselow_habittracker.HABIT";
