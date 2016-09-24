@@ -2,6 +2,8 @@ package com.harleyvanselow.vanselow_habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.util.ArrayMap;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -11,8 +13,13 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * Created by Harley Vanselow on 2016-09-10.
@@ -48,28 +55,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inflateHabitList(List<Habit> curHabits, LinearLayout habitList) {
-        Calendar currentTime = Calendar.getInstance();
+        final Calendar currentTime = Calendar.getInstance();
         currentTime.setTime(new Date());
+        ArrayMap<Integer,Habit> pendingInflation = new ArrayMap<>();
         for (int i = 0; i < curHabits.size(); i++) {
             Habit habit = curHabits.get(i);
-            if (!habit.getDays().contains(currentTime.get(Calendar.DAY_OF_WEEK))) {
-                continue;
+            if (habit.getDays().contains(currentTime.get(Calendar.DAY_OF_WEEK))) {
+                inflateHabit(habitList,i,habit,true);
             }
-            getLayoutInflater().inflate(R.layout.habit_layout, habitList);
-            LinearLayout habitContainer = (LinearLayout) findViewById(R.id.newHabit);
-            habitContainer.setId(i);
-            habitContainer.setTag(habit);
-            TextView habitName = (TextView) habitContainer.getChildAt(1);
-            TextView habitCount = (TextView) habitContainer.getChildAt(0);
-            int dailyCompletions = getDailyCompletions(habit);
-            habitCount.setText(String.valueOf(dailyCompletions));
-            if (dailyCompletions > 0) {
-                habitCount.setBackgroundColor(getResources().getColor(R.color.createButtonColor));
-            } else {
-                habitCount.setBackgroundColor(getResources().getColor(R.color.colorWarning));
+            else{
+                pendingInflation.put(i,habit);
             }
-            habitName.setText(habit.getName());
         }
+        for(Map.Entry<Integer,Habit> habitEntry:pendingInflation.entrySet()){
+            inflateHabit(habitList,habitEntry.getKey(),habitEntry.getValue(),false);
+        }
+    }
+
+    private void inflateHabit(LinearLayout habitList, int i, Habit habit, boolean isToday) {
+        getLayoutInflater().inflate(R.layout.habit_layout, habitList);
+        LinearLayout habitContainer = (LinearLayout) findViewById(R.id.newHabit);
+        habitContainer.setId(i);
+        habitContainer.setTag(habit);
+        if(isToday){
+            habitContainer.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        }
+        TextView habitName = (TextView) habitContainer.getChildAt(1);
+        TextView habitCount = (TextView) habitContainer.getChildAt(0);
+        int dailyCompletions = getDailyCompletions(habit);
+        habitCount.setText(String.valueOf(dailyCompletions));
+        if (dailyCompletions > 0) {
+            habitCount.setBackgroundColor(getResources().getColor(R.color.createButtonColor));
+        } else {
+            habitCount.setBackgroundColor(getResources().getColor(R.color.colorWarning));
+        }
+        habitName.setText(habit.getName());
     }
 
     private int getDailyCompletions(Habit habit) {
