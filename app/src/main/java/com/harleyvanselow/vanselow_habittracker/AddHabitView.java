@@ -9,8 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,14 +27,27 @@ import java.util.List;
  * appearing, but still existing in the save file.
  */
 public class AddHabitView extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);
+        TextView dateField = (TextView) findViewById(R.id.dateText);
+        Date currentDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        dateField.setText(format.format(currentDate));
     }
     public void saveHabit(View view){
         TextView habitNameView = (TextView) findViewById(R.id.editText);
+        TextView dateField= (TextView) findViewById(R.id.dateText);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        format.setLenient(false);
+        Date setDate;
+        try {
+            setDate = format.parse(dateField.getText().toString());
+        } catch (ParseException e) {
+            Toast.makeText(this,"Please enter a valid date in the format yyyy-mm-dd",Toast.LENGTH_SHORT).show();
+            return;
+        }
         List<Integer> checkedDays = getDaysOfWeek();
         String habitNameText = habitNameView.getText().toString();
         if(checkedDays.size()==0){
@@ -41,7 +57,7 @@ public class AddHabitView extends AppCompatActivity {
             Toast.makeText(this,"Please name your habit",Toast.LENGTH_SHORT).show();
             return;
         }
-        HabitIO.saveHabitToFile(new Habit(habitNameText,checkedDays),this);
+        HabitIO.saveHabitToFile(new Habit(habitNameText,checkedDays,setDate),this);
         finish();
     }
 
