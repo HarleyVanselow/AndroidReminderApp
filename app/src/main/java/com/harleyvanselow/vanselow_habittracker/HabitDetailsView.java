@@ -27,8 +27,12 @@ public class HabitDetailsView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_details);
+
+        //Generate controller/model
         String habitString = getIntent().getStringExtra(MainActivity.HABIT);
         habitDetailsModel = new HabitDetailsModel(habitString);
+
+        //Update view
         setTitle(habitDetailsModel.getName());
         setCompletionCount();
         setMissedCount();
@@ -53,10 +57,13 @@ public class HabitDetailsView extends AppCompatActivity {
         habitCompletionList.removeAllViews();
         List<Date> completionRecordList = habitDetailsModel.getCompletionRecord();
         for (Date completion : completionRecordList) {
+            //For each completion record, inflate a layout with the completion date, and a delete button
             getLayoutInflater().inflate(R.layout.habit_completion_record, habitCompletionList);
             RelativeLayout completionRecordContainer = (RelativeLayout) findViewById(R.id.newCompletionRecord);
             completionRecordContainer.setId(completionRecordList.indexOf(completion));
             completionRecordContainer.setTag(completion);
+
+            //Fill in details for the record
             TextView completionRecord = (TextView) completionRecordContainer.getChildAt(0);
             completionRecord.setText(formatDate(completion));
         }
@@ -69,6 +76,8 @@ public class HabitDetailsView extends AppCompatActivity {
 
     public void deleteRecord(View view) {
         habitDetailsModel.deleteHabitRecord(view);
+
+        //Refresh view
         loadCompletionRecords();
         setMissedCount();
         setCompletionCount();
@@ -79,6 +88,7 @@ public class HabitDetailsView extends AppCompatActivity {
         } catch (NoSuchElementException e) {
             Toast.makeText(HabitDetailsView.this, "Habit not found!", Toast.LENGTH_SHORT).show();
         }
+        //Return to main screen when habit is deleted
         finish();
     }
 

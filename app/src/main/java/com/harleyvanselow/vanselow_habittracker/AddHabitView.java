@@ -42,6 +42,7 @@ public class AddHabitView extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         format.setLenient(false);
         Date setDate;
+        //Input validation on creation date
         try {
             setDate = format.parse(dateField.getText().toString());
         } catch (ParseException e) {
@@ -50,10 +51,13 @@ public class AddHabitView extends AppCompatActivity {
         }
         List<Integer> checkedDays = getDaysOfWeek();
         String habitNameText = habitNameView.getText().toString();
+        //Input validation on days checked
         if(checkedDays.size()==0){
             Toast.makeText(this,"Please select at least one day",Toast.LENGTH_SHORT).show();
             return;
-        }else if(habitNameText.length()==0){
+        }
+        //Input validation on name entered
+        if(habitNameText.length()==0){
             Toast.makeText(this,"Please name your habit",Toast.LENGTH_SHORT).show();
             return;
         }

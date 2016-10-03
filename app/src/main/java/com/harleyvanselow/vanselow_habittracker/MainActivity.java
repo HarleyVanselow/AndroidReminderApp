@@ -2,6 +2,7 @@ package com.harleyvanselow.vanselow_habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
@@ -55,13 +56,16 @@ public class MainActivity extends AppCompatActivity {
     private void inflateHabitList(List<Habit> curHabits, LinearLayout habitList) {
         final Calendar currentTime = Calendar.getInstance();
         currentTime.setTime(new Date());
+        //Must be able to save index of habit so later inflation won't have ID conflicts.
         ArrayMap<Integer,Habit> pendingInflation = new ArrayMap<>();
         for (int i = 0; i < curHabits.size(); i++) {
             Habit habit = curHabits.get(i);
             if (habit.getDays().contains(currentTime.get(Calendar.DAY_OF_WEEK))) {
+                //Must be active today, inflate first
                 inflateHabit(habitList,i,habit,true);
             }
             else{
+                //Must not be active today, inflate after all active habits
                 pendingInflation.put(i,habit);
             }
         }
@@ -76,16 +80,16 @@ public class MainActivity extends AppCompatActivity {
         habitContainer.setId(i);
         habitContainer.setTag(habit);
         if(isToday){
-            habitContainer.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            habitContainer.setBackgroundColor(ContextCompat.getColor(this,R.color.colorAccent));
         }
         TextView habitName = (TextView) habitContainer.getChildAt(1);
         TextView habitCount = (TextView) habitContainer.getChildAt(0);
         int dailyCompletions = getDailyCompletions(habit);
         habitCount.setText(String.valueOf(dailyCompletions));
         if (dailyCompletions > 0) {
-            habitCount.setBackgroundColor(getResources().getColor(R.color.createButtonColor));
+            habitCount.setBackgroundColor(ContextCompat.getColor(this,R.color.createButtonColor));
         } else {
-            habitCount.setBackgroundColor(getResources().getColor(R.color.colorWarning));
+            habitCount.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWarning));
         }
         habitName.setText(habit.getName());
     }

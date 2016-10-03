@@ -32,9 +32,12 @@ public class HabitDetailsModelTest {
     @Test
     public void testGetMissedCountValue() throws Exception {
         int timeDisplacement = -7;
-        List<Integer> days = Arrays.asList(Calendar.MONDAY, Calendar.WEDNESDAY, Calendar.FRIDAY, Calendar.SUNDAY);
+        List<Integer> days = Arrays.asList(Calendar.MONDAY, Calendar.WEDNESDAY, Calendar.FRIDAY,Calendar.SUNDAY);
+        Calendar testCalendar= Calendar.getInstance();
+        testCalendar.setTime(new Date());
         setTestHabitDetailsModel(days, timeDisplacement);
-        Assert.assertEquals(days.size(),habitDetailsModel.getMissedCountValue());
+        int expectedDaysMissed = days.contains(testCalendar.get(Calendar.DAY_OF_WEEK)) ? days.size() + 1 : days.size();
+        Assert.assertEquals(expectedDaysMissed,habitDetailsModel.getMissedCountValue());
 
         days = Arrays.asList(Calendar.MONDAY, Calendar.TUESDAY,Calendar.WEDNESDAY, Calendar.THURSDAY,Calendar.FRIDAY,Calendar.SATURDAY,Calendar.SUNDAY);
         setTestHabitDetailsModel(days,timeDisplacement);

@@ -31,6 +31,7 @@ public class HabitDetailsModel {
     }
 
     public void deleteHabitRecord(View view) {
+        //This view is the garbage can. The parent will be tagged with the completion date to be deleted
         Date completionToDelete = (Date) ((View) view.getParent()).getTag();
         habit.getCompletionRecord().remove(completionToDelete);
         HabitIO.saveHabitToFile(habit, view.getContext());
@@ -41,7 +42,7 @@ public class HabitDetailsModel {
         habit = gson.fromJson(habitClicked, Habit.class);
     }
 
-    protected int getMissedCountValue() {
+    int getMissedCountValue() {
         Calendar creationDate = Calendar.getInstance();
         Calendar toCheck = Calendar.getInstance();
         Calendar completionDate = Calendar.getInstance();

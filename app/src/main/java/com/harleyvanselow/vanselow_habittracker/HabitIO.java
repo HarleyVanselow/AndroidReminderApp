@@ -29,6 +29,7 @@ public class HabitIO {
     public static ArrayList<Habit> readHabitsFromFile(Context context){
         Gson gson = new Gson();
         StringBuilder stringBuilder = new StringBuilder();
+        //Deserialization scheme inspired by: http://stackoverflow.com/a/5554296 and http://stackoverflow.com/a/19459940
         Type collectionType = new TypeToken<ArrayList<Habit>>(){}.getType();
         ArrayList<Habit> habits = new ArrayList<>();
         try {
